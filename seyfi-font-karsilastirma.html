@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seyfi Balık — Font Karşılaştırma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+  family=Abril+Fatface
+  &family=Gloock
+  &family=Spectral:ital,wght@0,600;0,700;0,800;1,600;1,700;1,800
+  &family=Libre+Baskerville:ital,wght@0,400;0,700;1,400
+  &family=Big+Shoulders+Display:wght@700;900
+  &family=Montserrat:wght@300;400;500
+  &display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --lacivert: oklch(21.5% 0.058 254);
+  --krem:     oklch(95.2% 0.009 84);
+  --bakir:    oklch(60.5% 0.118 50);
+  --kum:      oklch(90.5% 0.014 83);
+  --ghost:    oklch(62% 0.02 85);
+  --muted:    oklch(52% 0.04 255);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--kum);
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 1200px; margin: 0 auto; padding: 64px 48px; }
+
+/* Header */
+.hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 36px;
+  margin-bottom: 56px;
+  border-bottom: 2px solid var(--lacivert);
+}
+
+.hd-title {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hd-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: var(--bakir);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 40px;
+  padding: 16px 24px;
+  background: var(--lacivert);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: oklch(55% 0.04 255);
+}
+
+.legend-item span { color: var(--bakir); margin-right: 6px; }
+
+/* Grid of cards */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+.card {
+  background: var(--krem);
+  padding: 40px 40px 36px;
+  position: relative;
+}
+
+/* "Önerilir" badge */
+.card-recommended {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bakir);
+  color: var(--krem);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+
+.card-label {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.card-label strong {
+  font-weight: 600;
+  color: var(--lacivert);
+  display: block;
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+/* The display name specimen */
+.f-display {
+  font-size: 88px;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: var(--lacivert);
+  margin-bottom: 8px;
+}
+
+/* Italic / secondary */
+.f-italic {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--ghost);
+  margin-bottom: 20px;
+}
+
+.f-rule {
+  height: 1px;
+  background: oklch(80% 0.01 83);
+  margin: 20px 0;
+}
+
+/* Price row */
+.f-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.f-price {
+  font-size: 52px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--bakir);
+}
+
+.f-section {
+  font-size: 28px;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--lacivert);
+}
+
+/* Eyebrow — same across all (Montserrat) */
+.f-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bakir);
+  margin-bottom: 4px;
+}
+
+/* Notes */
+.card-notes {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid oklch(83% 0.01 83);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.card-notes strong {
+  color: var(--lacivert);
+  font-weight: 600;
+}
+
+.card-notes .pro  { color: oklch(55% 0.12 155); }
+.card-notes .con  { color: oklch(50% 0.1  30); }
+
+/* Dark card (post preview) */
+.card-dark {
+  background: var(--lacivert);
+  color: var(--krem);
+}
+
+.card-dark .card-label { color: oklch(45% 0.04 255); }
+.card-dark .card-label strong { color: oklch(70% 0.02 85); }
+.card-dark .f-rule { background: oklch(32% 0.05 255); }
+.card-dark .f-section { color: oklch(70% 0.02 85); }
+
+/* Mini post preview */
+.mini-post {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--lacivert);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 28px;
+}
+
+.mini-post-ey {
+  padding: 10px 14px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 6px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bakir);
+}
+
+.mini-post-name {
+  font-size: 42px;
+  letter-spacing: -0.055em;
+  line-height: 0.82;
+  color: var(--krem);
+  width: 115%;
+  margin-left: -7%;
+  text-align: center;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.mini-post-img {
+  flex: 1;
+  background: oklch(16% 0.04 256);
+  margin: 4px 12px 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.mini-post-img::after {
+  content: 'FOTOĞRAF';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7px;
+  letter-spacing: 0.18em;
+  color: oklch(35% 0.04 255);
+}
+
+.mini-post-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 6px 14px 12px;
+}
+
+.mini-post-price {
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--bakir);
+}
+
+.mini-post-en {
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: oklch(55% 0.03 85);
+}
+
+/* Full-width comparison bar at bottom */
+.compare-bar {
+  margin-top: 56px;
+  background: var(--lacivert);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.cb-cell {
+  padding: 28px 24px;
+  border-right: 1px solid oklch(30% 0.05 255);
+}
+
+.cb-cell:last-child { border-right: none; }
+
+.cb-name {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: oklch(45% 0.04 255);
+  margin-bottom: 12px;
+}
+
+.cb-price {
+  font-size: 44px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--bakir);
+}
+
+.cb-section {
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: oklch(68% 0.02 85);
+  margin-top: 6px;
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hd">
+    <div>
+      <p class="hd-title">Seyfi Balık &nbsp;—&nbsp; Font Karşılaştırma</p>
+      <p style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6;">
+        Bodoni Moda yerine 4 alternatif · Her birinde aynı metinler · Sağ altta mini post önizleme
+      </p>
+    </div>
+    <p class="hd-sub">Mayıs 2026</p>
+  </header>
+
+  <div class="legend">
+    <span><span>A</span>LEVREK — büyük isim (Post A bleed etkisi)</span>
+    <span><span>B</span>Ege Otları — bölüm başlığı</span>
+    <span><span>C</span>480 ₺/kg — fiyat (bakır)</span>
+    <span><span>D</span>İtalik specimen (varsa)</span>
+  </div>
+
+  <div class="cards">
+
+    <!-- ═══════════════════════════════
+         1  ABRIL FATFACE
+         Ultra-bold poster quality
+    ═══════════════════════════════ -->
+    <div class="card">
+      <div class="card-label">
+        <strong>Abril Fatface</strong>
+        Google Fonts · Tek ağırlık (Regular = zaten extra-bold)
+      </div>
+
+      <p class="f-eyebrow">Günün Balığı &nbsp;·&nbsp; Daily Fish</p>
+
+      <div class="f-display" style="font-family:'Abril Fatface',serif;">
+        LEVREK
+      </div>
+
+      <div class="f-italic" style="font-family:'Abril Fatface',serif;font-style:normal;font-size:30px;color:oklch(65% 0.02 85);">
+        <!-- no italic — shown in Montserrat italic below -->
+        <span style="font-family:'Montserrat';font-style:italic;font-weight:300;font-size:24px;">Sea Bass</span>
+        &nbsp;
+        <span style="font-size:11px;font-family:'Montserrat';letter-spacing:0.1em;text-transform:uppercase;color:var(--bakir);">← italik yok, body ile pair</span>
+      </div>
+
+      <div class="f-rule"></div>
+
+      <div class="f-price-row">
+        <div class="f-price" style="font-family:'Abril Fatface',serif;">480 ₺</div>
+        <div class="f-section" style="font-family:'Abril Fatface',serif;">Ege<br>Otları</div>
+      </div>
+
+      <div class="card-notes">
+        <p><span class="pro">✓ En güçlü display etkisi.</span> Büyük başlıklar için doğal yazılmış — "LEVREK" 130px'te hiç zorlanmıyor.</p>
+        <p style="margin-top:6px;"><span class="con">✗ İtalik yok.</span> "Şeffaf <em>Fiyat.</em>" gibi italik gerektiren kısımlar için ayrı font gerekir.</p>
+        <p style="margin-top:6px;"><strong>Çözüm:</strong> Display için Abril Fatface, italik için Montserrat 300 Italic. Karma ama işe yarar.</p>
+      </div>
+
+      <!-- Mini post preview -->
+      <div class="mini-post">
+        <p class="mini-post-ey">Günün Balığı · Daily Fish</p>
+        <div class="mini-post-name" style="font-family:'Abril Fatface',serif;">LEVREK</div>
+        <div class="mini-post-img"></div>
+        <div class="mini-post-bottom">
+          <span class="mini-post-price" style="font-family:'Abril Fatface',serif;">480 ₺</span>
+          <span class="mini-post-en" style="font-family:'Montserrat';font-style:italic;font-weight:300;">Sea Bass</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════
+         2  SPECTRAL EXTRABOLD
+         Modern editorial, full weight range + italic
+         ⭐ ÖNERİLEN
+    ═══════════════════════════════ -->
+    <div class="card">
+      <div class="card-recommended">Önerilir</div>
+      <div class="card-label">
+        <strong>Spectral ExtraBold (800)</strong>
+        Google Fonts · 200–800 · Tüm ağırlıklarda italik var
+      </div>
+
+      <p class="f-eyebrow">Günün Balığı &nbsp;·&nbsp; Daily Fish</p>
+
+      <div class="f-display" style="font-family:'Spectral',serif;font-weight:800;">
+        LEVREK
+      </div>
+
+      <div class="f-italic" style="font-family:'Spectral',serif;font-style:italic;font-weight:800;">
+        Sea Bass
+      </div>
+
+      <div class="f-rule"></div>
+
+      <div class="f-price-row">
+        <div class="f-price" style="font-family:'Spectral',serif;font-weight:800;">480 ₺</div>
+        <div class="f-section" style="font-family:'Spectral',serif;font-weight:700;">Ege<br>Otları</div>
+      </div>
+
+      <div class="card-notes">
+        <p><span class="pro">✓ Tam ağırlık ailesi + italik.</span> "Şeffaf <em>Fiyat.</em>", "Rakı <em>Ritüeli</em>" kısımları native italikle çalışır.</p>
+        <p style="margin-top:6px;"><span class="pro">✓ Production Type tasarımı</span> — ekran için optimize, büyük boyutta güçlü kontrast.</p>
+        <p style="margin-top:6px;"><span class="con">✗ Biraz teknik/editorial.</span> Hafif "ciddi gazete" hissi var — ama meyhane markası için bu sorun değil, tam tersine "dürüst" sesini destekler.</p>
+      </div>
+
+      <div class="mini-post">
+        <p class="mini-post-ey">Günün Balığı · Daily Fish</p>
+        <div class="mini-post-name" style="font-family:'Spectral',serif;font-weight:800;">LEVREK</div>
+        <div class="mini-post-img"></div>
+        <div class="mini-post-bottom">
+          <span class="mini-post-price" style="font-family:'Spectral',serif;font-weight:800;">480 ₺</span>
+          <span class="mini-post-en" style="font-family:'Spectral',serif;font-style:italic;font-weight:700;font-size:17px;">Sea Bass</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════
+         3  LIBRE BASKERVILLE
+         Sturdy classic, bold + italic
+    ═══════════════════════════════ -->
+    <div class="card">
+      <div class="card-label">
+        <strong>Libre Baskerville Bold (700)</strong>
+        Google Fonts · 400 / 700 · İtalik var
+      </div>
+
+      <p class="f-eyebrow">Günün Balığı &nbsp;·&nbsp; Daily Fish</p>
+
+      <div class="f-display" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:72px;">
+        LEVREK
+      </div>
+
+      <div class="f-italic" style="font-family:'Libre Baskerville',serif;font-style:italic;font-weight:400;">
+        Sea Bass
+      </div>
+
+      <div class="f-rule"></div>
+
+      <div class="f-price-row">
+        <div class="f-price" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:44px;">480 ₺</div>
+        <div class="f-section" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:24px;">Ege<br>Otları</div>
+      </div>
+
+      <div class="card-notes">
+        <p><span class="pro">✓ Güvenilir, okunabilir.</span> Web için yeniden çizilmiş Baskerville — dürüst, tanıdık, meyhane sadeliğiyle örtüşüyor.</p>
+        <p style="margin-top:6px;"><span class="con">✗ Çok yaygın.</span> Sayısız restoran ve menü sitesi kullanıyor; ayrışma zorlaşır.</p>
+        <p style="margin-top:6px;"><span class="con">✗ 700 maksimum ağırlık.</span> Büyük başlıklarda biraz yumuşak kalıyor — "LEVREK" tam anlamıyla patlamıyor.</p>
+      </div>
+
+      <div class="mini-post">
+        <p class="mini-post-ey">Günün Balığı · Daily Fish</p>
+        <div class="mini-post-name" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:34px;line-height:0.9;">LEVREK</div>
+        <div class="mini-post-img"></div>
+        <div class="mini-post-bottom">
+          <span class="mini-post-price" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:22px;">480 ₺</span>
+          <span class="mini-post-en" style="font-family:'Libre Baskerville',serif;font-style:italic;font-size:13px;">Sea Bass</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════
+         4  BIG SHOULDERS DISPLAY
+         Already in brand system — condensed sans
+         Different direction
+    ═══════════════════════════════ -->
+    <div class="card">
+      <div class="card-label">
+        <strong>Big Shoulders Display (900)</strong>
+        Mevcut marka sisteminde var · Kondense sans-serif · Yön değişikliği
+      </div>
+
+      <p class="f-eyebrow">Günün Balığı &nbsp;·&nbsp; Daily Fish</p>
+
+      <div class="f-display" style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;letter-spacing:-0.02em;">
+        LEVREK
+      </div>
+
+      <div class="f-italic" style="font-family:'Montserrat',sans-serif;font-style:italic;font-weight:300;color:oklch(65% 0.02 85);">
+        <span>Sea Bass &nbsp;</span>
+        <span style="font-size:11px;font-style:normal;font-family:'Montserrat';letter-spacing:0.1em;text-transform:uppercase;color:var(--bakir);">← Montserrat ile pair</span>
+      </div>
+
+      <div class="f-rule"></div>
+
+      <div class="f-price-row">
+        <div class="f-price" style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;">480 ₺</div>
+        <div class="f-section" style="font-family:'Big Shoulders Display',sans-serif;font-weight:700;letter-spacing:-0.01em;">Ege<br>Otları</div>
+      </div>
+
+      <div class="card-notes">
+        <p><span class="pro">✓ Zaten marka sisteminde.</span> colors_and_type.css'de Cherston fallback olarak kayıtlı. Tutarlılık sağlanmış.</p>
+        <p style="margin-top:6px;"><span class="pro">✓ İşaret tabelası hissi.</span> "Balık fiyat tabelası" veya "liman duyuru panosu" — güçlü kontrast sans ile tam örtüşüyor.</p>
+        <p style="margin-top:6px;"><span class="con">✗ Serif değil.</span> Serif → sans geçiş demek; tamamen farklı karakter.</p>
+      </div>
+
+      <div class="mini-post">
+        <p class="mini-post-ey">Günün Balığı · Daily Fish</p>
+        <div class="mini-post-name" style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;letter-spacing:-0.02em;">LEVREK</div>
+        <div class="mini-post-img"></div>
+        <div class="mini-post-bottom">
+          <span class="mini-post-price" style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:28px;">480 ₺</span>
+          <span class="mini-post-en" style="font-family:'Montserrat';font-style:italic;font-weight:300;">Sea Bass</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards -->
+
+  <!-- Full-width price row comparison -->
+  <div class="compare-bar">
+    <div class="cb-cell">
+      <p class="cb-name">Abril Fatface</p>
+      <div class="cb-price" style="font-family:'Abril Fatface',serif;">480 ₺/kg</div>
+      <div class="cb-section" style="font-family:'Abril Fatface',serif;">Şeffaf Fiyat.</div>
+    </div>
+    <div class="cb-cell">
+      <p class="cb-name">Spectral 800 ⭐</p>
+      <div class="cb-price" style="font-family:'Spectral',serif;font-weight:800;">480 ₺/kg</div>
+      <div class="cb-section" style="font-family:'Spectral',serif;font-weight:700;font-style:italic;">Şeffaf Fiyat.</div>
+    </div>
+    <div class="cb-cell">
+      <p class="cb-name">Libre Baskerville 700</p>
+      <div class="cb-price" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:36px;">480 ₺/kg</div>
+      <div class="cb-section" style="font-family:'Libre Baskerville',serif;font-weight:400;font-style:italic;">Şeffaf Fiyat.</div>
+    </div>
+    <div class="cb-cell">
+      <p class="cb-name">Big Shoulders Display 900</p>
+      <div class="cb-price" style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;">480 ₺/kg</div>
+      <div class="cb-section" style="font-family:'Montserrat';font-style:italic;font-weight:300;">Şeffaf Fiyat.</div>
+    </div>
+  </div>
+
+  <!-- Recommendation -->
+  <div style="margin-top:48px;padding:36px 40px;background:var(--krem);border-left:3px solid var(--bakir);">
+    <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--bakir);margin-bottom:14px;">Öneri</p>
+    <p style="font-family:'Spectral',serif;font-size:28px;font-weight:800;letter-spacing:-0.015em;color:var(--lacivert);margin-bottom:16px;line-height:1.1;">
+      Spectral 800 — fiyat panosundan italik başlığa kadar tek aileden.
+    </p>
+    <p style="font-size:13px;color:oklch(46% 0.04 255);line-height:1.8;max-width:700px;">
+      Bodoni Moda'nın sorunu çok ince hairline'larının büyük ekranlarda "dekoratif" görünmesi — meyhane için yanlış register. Spectral aynı yüksek kontrasta sahip ama gövde çizgileri daha dolgun, daha "mürekkepli". 200–800 arası tüm ağırlıklar ve her ağırlıkta italic mevcut; "Rakı <em>Ritüeli</em>" ve "Şeffaf <em>Fiyat.</em>" gibi mixed-style başlıklar sorunsuz çalışır.
+    </p>
+    <p style="font-size:13px;color:oklch(46% 0.04 255);line-height:1.8;max-width:700px;margin-top:12px;">
+      Eğer seriften vazgeçebilirsen <strong>Big Shoulders Display</strong> zaten marka sisteminin bir parçası ve "liman tabelası" hissi mükemmel oturuyor.
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
