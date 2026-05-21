@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Seyfi Balık — Yalıkavak'ta 1987'den beri rakı-balık meyhanesi. Ege otları, taze balık, 30+ soğuk meze.">
+  <title>Seyfi Balık — Yalıkavak Meyhanesi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Montserrat:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #1B2845;   /* Lacivert — baskın alan, gece meyhane        */
+      --navy-d:   #0c1728;   /* Koyu lacivert — footer, manifesto           */
+      --navy-m:   #253858;   /* Orta lacivert — hover, fiyat bölümü         */
+      --copper:   #B87333;   /* Bakır — CTA, fiyat vurgusu, aksan           */
+      --copper-l: #c8893f;   /* Açık bakır — hover durumu                   */
+      --olive:    #6F7F61;   /* Zeytin — doğal vurgu, değerler kartı aksan  */
+      --cream:    #F5F1E8;   /* Krem kağıt — aydınlık alanlar               */
+      --ease:     cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ── UTILITIES ── */
+    .serif  { font-family: 'Playfair Display', Georgia, serif; }
+    .script { font-family: 'Sacramento', cursive; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.10s; }
+    .d2 { transition-delay: 0.20s; }
+    .d3 { transition-delay: 0.30s; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3.5rem;
+      transition: background .4s, padding .4s, box-shadow .4s;
+    }
+    .nav.scrolled {
+      background: rgba(12,23,40,.96);
+      backdrop-filter: blur(16px);
+      padding: .85rem 3.5rem;
+      box-shadow: 0 1px 0 rgba(255,255,255,.06);
+    }
+    .nav-brand { display: flex; align-items: center; gap: .75rem; }
+    .nav-logo  { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .nav-name  {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--cream); letter-spacing: .04em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: .7rem; font-weight: 500;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(242,237,223,.6);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .6rem 1.4rem;
+      background: var(--copper); color: #fff;
+      font-size: .7rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      border-radius: 1px;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--copper-l); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 4rem 5rem 3.5rem;
+      position: relative; z-index: 2;
+    }
+    .hero-left::after {
+      content: '';
+      position: absolute; right: 0; top: 15%; bottom: 15%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(242,237,223,.12) 40%, rgba(242,237,223,.12) 60%, transparent);
+    }
+    .hero-eyebrow {
+      font-size: .65rem; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(242,237,223,.38);
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1rem;
+    }
+    .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: rgba(242,237,223,.22); }
+    .hero-script {
+      font-family: 'Sacramento', cursive;
+      font-size: 2.75rem; color: rgba(242,237,223,.7);
+      opacity: .85; margin-bottom: .75rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 5.2rem);
+      font-weight: 400; color: var(--cream);
+      line-height: 1.06; margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--cream); opacity: .65; }
+    .hero-sub {
+      font-size: .92rem; font-weight: 300;
+      color: rgba(242,237,223,.5);
+      line-height: 1.85; max-width: 400px;
+      margin-bottom: 2.25rem;
+    }
+    .hero-tags {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 2.25rem;
+    }
+    .hero-tag {
+      font-size: .6rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(242,237,223,.4);
+      padding: .35rem .75rem;
+      border: 1px solid rgba(242,237,223,.1);
+    }
+    .hero-ctas { display: flex; gap: 1rem; align-items: center; }
+    .btn-pink {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .9rem 2rem;
+      background: var(--copper); color: #fff;
+      font-size: .78rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 1px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-pink:hover { background: var(--copper-l); transform: translateY(-2px); }
+    .hero-phone {
+      font-size: .85rem; font-weight: 300;
+      color: rgba(242,237,223,.4); letter-spacing: .04em;
+    }
+    .hero-loc {
+      margin-top: 3rem;
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .6rem; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(242,237,223,.28);
+    }
+    .hero-loc svg { width: 12px; height: 12px; }
+
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(to right,  rgba(27,40,69,1) 0%, rgba(27,40,69,.9) 12%, rgba(27,40,69,.4) 38%, transparent 62%),
+        linear-gradient(to bottom, rgba(27,40,69,.38) 0%, transparent 22%);
+    }
+    .hero-photo {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: 40% 72%;
+      filter: brightness(.7) saturate(.9);
+    }
+    .hero-fish-deco {
+      position: absolute; bottom: 2.5rem; right: 2.5rem; z-index: 2;
+      width: 200px; opacity: .08; pointer-events: none;
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 3.5rem; z-index: 10;
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    }
+    .scroll-hint span {
+      font-size: .55rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(242,237,223,.25);
+    }
+    .scroll-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(242,237,223,.4), transparent);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: .3; transform: scaleY(.6); transform-origin: top; }
+      50%      { opacity: 1;  transform: scaleY(1);  transform-origin: top; }
+    }
+
+    /* ── MANIFESTO ── */
+    .manifesto {
+      background: var(--navy-d);
+      padding: 3.5rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .manifesto-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 3rem;
+    }
+    .manifesto-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-style: italic; font-weight: 400;
+      color: #fff; line-height: 1.2; flex: 1;
+    }
+    .manifesto-quote strong {
+      display: block; font-style: normal; font-weight: 700;
+      font-size: clamp(1rem, 1.6vw, 1.4rem);
+      margin-top: .5rem; letter-spacing: .03em;
+    }
+    .manifesto-rule { width: 1px; height: 80px; background: rgba(255,255,255,.2); flex-shrink: 0; }
+    .manifesto-body {
+      font-size: .8rem; font-weight: 400;
+      color: rgba(255,255,255,.72);
+      line-height: 1.85; max-width: 280px;
+    }
+
+    /* ── STORY ── */
+    .story { background: var(--cream); padding: 7rem 3.5rem; }
+    .story-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 5fr 7fr;
+      gap: 5rem; align-items: center;
+    }
+    .story-photos { position: relative; }
+    .story-photo-main {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; border-radius: 1px;
+      filter: brightness(.9) saturate(1.05);
+    }
+    .story-photo-accent {
+      position: absolute; bottom: -2rem; right: -2rem;
+      width: 52%; aspect-ratio: 1;
+      object-fit: cover;
+      border: 5px solid var(--cream); border-radius: 1px;
+      filter: brightness(.85);
+    }
+    .story-badge {
+      position: absolute; top: -1.5rem; left: -1.5rem;
+      width: 88px; height: 88px; border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--cream);
+      box-shadow: 0 4px 20px rgba(27,40,69,.2);
+    }
+    .story-badge img { width: 100%; height: 100%; object-fit: cover; }
+
+    .eyebrow {
+      font-size: .62rem; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(27,40,69,.42);
+      display: flex; align-items: center; gap: .7rem;
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: rgba(27,40,69,.22); }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 3.8vw, 3.6rem);
+      font-weight: 400; color: var(--navy);
+      line-height: 1.1; margin-bottom: 1.75rem;
+    }
+    .section-title em { font-style: italic; color: var(--navy); opacity: .6; }
+    .body-text {
+      font-size: .88rem; font-weight: 300;
+      color: rgba(27,40,69,.68); line-height: 1.95;
+    }
+    .body-text p + p { margin-top: 1rem; }
+
+    .story-quote {
+      margin-top: 2rem;
+      padding: 1.4rem 1.5rem;
+      border-left: 3px solid rgba(27,40,69,.18);
+      background: rgba(27,40,69,.04);
+    }
+    .story-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-style: italic;
+      color: var(--navy); line-height: 1.65;
+    }
+    .story-quote cite {
+      display: block; margin-top: .5rem;
+      font-size: .6rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(27,40,69,.38); font-style: normal;
+    }
+
+    /* ── VALUES ── */
+    .values { background: var(--navy); padding: 6rem 3.5rem; }
+    .values-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .val-card {
+      padding: 3.5rem 2.5rem;
+      background: var(--navy);
+      position: relative;
+      transition: background .3s;
+    }
+    .val-card:hover { background: var(--navy-m); }
+    .val-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem; font-weight: 400;
+      color: rgba(242,237,223,.08);
+      line-height: 1; margin-bottom: 1.5rem;
+    }
+    .val-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem; font-weight: 500;
+      color: var(--cream); margin-bottom: .85rem;
+    }
+    .val-body {
+      font-size: .88rem; font-weight: 300;
+      color: rgba(242,237,223,.52); line-height: 1.9;
+    }
+    .val-accent {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--olive);
+      transform: scaleX(0); transition: transform .4s var(--ease);
+      transform-origin: left;
+    }
+    .val-card:hover .val-accent { transform: scaleX(1); }
+
+    /* ── WAVE ── */
+    .wave { display: block; line-height: 0; }
+
+    /* ── MEZZE ── */
+    .mezze { background: var(--cream); padding: 7rem 3.5rem; }
+    .sec-header {
+      max-width: 1200px; margin: 0 auto 4rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: end;
+    }
+    .sec-desc {
+      font-size: .86rem; font-weight: 300;
+      color: rgba(27,40,69,.58); line-height: 1.95;
+      padding-bottom: .4rem;
+    }
+
+    /* Editorial 12-col grid */
+    .mezze-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(12,1fr);
+      gap: 1.5rem;
+    }
+    .mg-photo-a { grid-column: 1/6;  grid-row: 1/3; }
+    .mg-c1      { grid-column: 6/9;  grid-row: 1; }
+    .mg-c2      { grid-column: 9/13; grid-row: 1; }
+    .mg-c3      { grid-column: 6/10; grid-row: 2; }
+    .mg-photo-b { grid-column: 10/13;grid-row: 2; }
+    .mg-c4      { grid-column: 1/5;  grid-row: 3; }
+    .mg-c5      { grid-column: 5/9;  grid-row: 3; }
+    .mg-c6      { grid-column: 9/13; grid-row: 3; }
+
+    .mz-photo {
+      overflow: hidden; border-radius: 1px;
+    }
+    .mz-photo.mg-photo-a { aspect-ratio: 3/4; }
+    .mz-photo.mg-photo-b { aspect-ratio: 1; }
+    .mz-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .65s var(--ease);
+    }
+    .mz-photo:hover img { transform: scale(1.04); }
+
+    .mz-card {
+      background: var(--navy);
+      padding: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .mz-card::after {
+      content: attr(data-n);
+      position: absolute; bottom: -.6rem; right: .75rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 5.5rem; font-weight: 900;
+      color: rgba(255,255,255,.03);
+      line-height: 1; pointer-events: none;
+    }
+    .mz-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 500;
+      color: var(--cream); margin-bottom: .25rem;
+    }
+    .mz-en {
+      font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(242,237,223,.35); margin-bottom: .85rem; font-weight: 500;
+    }
+    .mz-desc {
+      font-size: .84rem; font-weight: 300;
+      color: rgba(242,237,223,.52); line-height: 1.85;
+    }
+
+    /* ── EGE OTLARI ── */
+    .otlar {
+      background: var(--navy);
+      padding: 7rem 3.5rem;
+      position: relative; overflow: hidden;
+    }
+    .otlar-fish-bg {
+      position: absolute; right: -80px; top: 50%;
+      transform: translateY(-50%);
+      width: 420px; opacity: .025; pointer-events: none;
+    }
+    .otlar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.15fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .otlar-text .eyebrow { color: rgba(242,237,223,.45); }
+    .otlar-text .eyebrow::before { background: rgba(242,237,223,.22); }
+    .otlar-text .section-title { color: var(--cream); }
+    .otlar-text .body-text { color: rgba(242,237,223,.52); }
+
+    .ot-list { list-style: none; margin-top: 2.5rem; }
+    .ot-item {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(242,237,223,.06);
+    }
+    .ot-item:last-child { border-bottom: none; }
+    .ot-dot {
+      width: 5px; height: 5px;
+      background: rgba(242,237,223,.22); border-radius: 50%;
+      margin-top: .58rem; flex-shrink: 0;
+    }
+    .ot-tr {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.12rem; color: var(--cream); font-weight: 400;
+    }
+    .ot-en {
+      font-size: .68rem; color: rgba(242,237,223,.38);
+      letter-spacing: .07em; text-transform: uppercase;
+      margin-top: .25rem; font-style: italic;
+    }
+
+    .otlar-visual { position: relative; }
+    .otlar-photo {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; border-radius: 1px;
+      filter: brightness(.78) saturate(1.1);
+    }
+    .otlar-card {
+      position: absolute; bottom: -1.75rem; left: -1.75rem;
+      background: var(--navy-d); color: var(--cream);
+      padding: 1.5rem 1.75rem; max-width: 250px;
+      border: 1px solid rgba(242,237,223,.07);
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+    }
+    .otlar-card p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-style: italic; line-height: 1.65;
+    }
+    .otlar-card cite {
+      display: block; margin-top: .75rem;
+      font-size: .55rem; letter-spacing: .14em;
+      text-transform: uppercase; opacity: .65; font-style: normal;
+    }
+
+    /* ── FIYAT ── */
+    .fiyat {
+      background: var(--navy-m);
+      padding: 6rem 3.5rem;
+      position: relative; overflow: hidden;
+    }
+    .fiyat::before {
+      content: '"';
+      position: absolute; top: -3rem; left: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 22rem; font-weight: 900;
+      color: rgba(255,255,255,.04);
+      line-height: 1; pointer-events: none;
+    }
+    .fiyat-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .fiyat-left .section-title { color: #fff; }
+    .fiyat-left .body-text { color: rgba(255,255,255,.72); margin-top: 1.5rem; }
+    .fiyat-left .eyebrow { color: rgba(255,255,255,.55); }
+    .fiyat-left .eyebrow::before { background: rgba(255,255,255,.22); }
+    .fiyat-list { list-style: none; }
+    .fi-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    .fi-item:last-child { border-bottom: none; }
+    .fi-check {
+      width: 22px; height: 22px; flex-shrink: 0;
+      background: rgba(255,255,255,.2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; color: #fff; font-weight: 700;
+    }
+    .fi-text {
+      font-size: .86rem; font-weight: 400;
+      color: rgba(255,255,255,.82); line-height: 1.5;
+    }
+
+    /* ── BALIK ── */
+    .balik { background: var(--cream); padding: 7rem 3.5rem; }
+    .balik-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .fish-tbl { width: 100%; margin-top: 2.5rem; }
+    .fish-head {
+      display: grid; grid-template-columns: 1fr auto auto;
+      gap: 1rem; padding: 0 0 .75rem;
+      border-bottom: 2px solid var(--navy);
+      font-size: .58rem; font-weight: 600;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(27,40,69,.38);
+    }
+    .fish-row {
+      display: grid; grid-template-columns: 1fr auto auto;
+      gap: 1rem; padding: 1.3rem 0;
+      border-bottom: 1px solid rgba(27,40,69,.08);
+      align-items: center;
+      transition: background .2s;
+    }
+    .fish-row:last-child { border-bottom: none; }
+    .fish-row:hover { background: rgba(27,40,69,.05); margin: 0 -.75rem; padding: 1.3rem .75rem; }
+    .fish-tr {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 400; color: var(--navy);
+    }
+    .fish-en {
+      font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(27,40,69,.38); font-weight: 500; margin-top: .2rem;
+    }
+    .fish-prep {
+      font-size: .7rem; font-weight: 300;
+      color: rgba(27,40,69,.42); text-align: right; line-height: 1.55;
+    }
+    .fish-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--navy); text-align: right; white-space: nowrap;
+    }
+    .fish-unit {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .55rem; opacity: .4; font-weight: 400;
+    }
+    .fish-note {
+      margin-top: 1.5rem;
+      font-size: .7rem; font-weight: 300;
+      color: rgba(27,40,69,.38);
+      font-style: italic; line-height: 1.8;
+    }
+    .balik-photo-wrap { position: relative; margin-top: 1.5rem; }
+    .balik-photo {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; border-radius: 1px;
+      filter: brightness(.9) saturate(1.05);
+    }
+    .balik-tag {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: var(--navy); color: var(--cream);
+      padding: .45rem .85rem;
+      font-size: .58rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+
+    /* ── ATMOSPHERE ── */
+    .atmo {
+      position: relative;
+      height: 70vh; min-height: 480px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .atmo-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(.42) saturate(.8);
+    }
+    .atmo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(12,23,40,.55), rgba(27,40,69,.38));
+    }
+    .atmo-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 2rem;
+    }
+    .atmo-word {
+      font-family: 'Sacramento', cursive;
+      font-size: clamp(4rem, 12vw, 10rem);
+      color: #fff; line-height: 1;
+    }
+    .atmo-sub {
+      margin-top: .5rem;
+      font-size: .65rem; font-weight: 500;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(255,255,255,.42);
+    }
+
+    /* ── REZERVASYON ── */
+    .rezervasyon { background: var(--navy); padding: 7rem 3.5rem; }
+    .rez-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .rez-left .section-title { color: var(--cream); }
+    .rez-left .body-text { color: rgba(242,237,223,.48); margin-top: 1.5rem; }
+    .rez-left .eyebrow { color: rgba(242,237,223,.42); }
+    .rez-left .eyebrow::before { background: rgba(242,237,223,.2); }
+
+    .rez-list { list-style: none; margin-top: 3rem; }
+    .rez-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(242,237,223,.07);
+    }
+    .rez-item:last-child { border-bottom: none; }
+    .rez-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border: 1px solid rgba(242,237,223,.12); border-radius: 1px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rez-icon svg { width: 15px; height: 15px; stroke: rgba(242,237,223,.5); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+    .rez-lbl {
+      font-size: .58rem; font-weight: 600;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(242,237,223,.28); margin-bottom: .3rem;
+    }
+    .rez-val {
+      font-size: .88rem; font-weight: 300;
+      color: var(--cream); line-height: 1.5;
+    }
+    .rez-val a { transition: color .2s; }
+    .rez-val a:hover { color: var(--cream); }
+
+    .rez-right {}
+    .rez-logo { width: 88px; border-radius: 50%; margin-bottom: 2rem; opacity: .85; }
+    .rez-blurb {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-style: italic;
+      color: rgba(242,237,223,.65);
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .rez-btns { display: flex; flex-direction: column; gap: .85rem; }
+    .btn-w {
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      padding: 1rem 2rem;
+      background: var(--copper); color: #fff;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 1px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-w:hover { background: var(--copper-l); transform: translateY(-2px); }
+    .btn-o {
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 1px solid rgba(242,237,223,.2);
+      color: rgba(242,237,223,.65);
+      font-size: .72rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 1px;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-o:hover { border-color: rgba(242,237,223,.45); color: var(--cream); }
+    .rez-note {
+      margin-top: 1.5rem;
+      font-size: .68rem; font-weight: 300;
+      color: rgba(242,237,223,.25); line-height: 1.8;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-d);
+      padding: 2.5rem 3.5rem;
+      border-top: 1px solid rgba(255,255,255,.04);
+    }
+    .footer-in {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: rgba(242,237,223,.22); letter-spacing: .08em;
+    }
+    .footer-mid {
+      font-size: .6rem; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(242,237,223,.18); text-align: center;
+      line-height: 1.8;
+    }
+    .footer-est {
+      font-size: .6rem; color: rgba(242,237,223,.18);
+      letter-spacing: .08em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .nav { padding: 1rem 1.5rem; }
+      .nav.scrolled { padding: .7rem 1.5rem; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 8rem 2rem 5rem; }
+      .hero-left::after { display: none; }
+
+      .manifesto-inner { flex-direction: column; gap: 1.5rem; }
+      .manifesto-rule { display: none; }
+
+      .story-inner, .otlar-inner, .fiyat-inner,
+      .balik-inner, .rez-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .sec-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .values-grid { grid-template-columns: 1fr; gap: 0; }
+
+      .mezze-grid { display: flex; flex-direction: column; gap: 1rem; }
+      .story-photo-accent { display: none; }
+      .otlar-card { position: static; margin-top: 1.5rem; max-width: 100%; }
+
+      .story, .values, .mezze, .otlar, .fiyat, .balik, .rezervasyon { padding: 5rem 1.5rem; }
+      .manifesto, footer { padding: 2.5rem 1.5rem; }
+      .footer-in { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      .hero-title { font-size: 2.6rem; }
+      .hero-tags { display: none; }
+      .atmo-word { font-size: 4.5rem; }
+      .balik-inner { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand">
+    <img src="Seyfi_Balik_Design_System/assets/logo-circle.png" alt="Seyfi Balık" class="nav-logo">
+    <span class="nav-name">Seyfi Balık</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hikaye">Hikaye</a></li>
+    <li><a href="#mezeler">Mezeler</a></li>
+    <li><a href="#balik">Günlük Balık</a></li>
+    <li><a href="#rezervasyon">Rezervasyon</a></li>
+  </ul>
+  <a class="nav-cta" href="https://wa.me/902523854143" target="_blank" rel="noopener">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+    Rezervasyon
+  </a>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Yalıkavak, Bodrum &nbsp;·&nbsp; 1987</div>
+    <div class="hero-script">Kaya koruğu, deniz börülcesi, şerefe.</div>
+    <h1 class="hero-title reveal">
+      Müziğin fonda<br>
+      kaldığı rakı<br>
+      <em>sofrası.</em>
+    </h1>
+    <p class="hero-sub reveal d1">
+      Yalıkavak Marina'nın dibinde, 1987'den bu yana. Sabah pazardan, öğle servise.
+      Aynı tepsiler, aynı otlar.
+    </p>
+    <div class="hero-tags reveal d1">
+      <span class="hero-tag">30+ Soğuk Meze</span>
+      <span class="hero-tag">Ege Otları</span>
+      <span class="hero-tag">Yılboyu Açık</span>
+      <span class="hero-tag">Marina Yanı</span>
+    </div>
+    <div class="hero-ctas reveal d2">
+      <a class="btn-pink" href="https://wa.me/902523854143" target="_blank" rel="noopener">Rezervasyon →</a>
+      <span class="hero-phone">0252 385 41 43</span>
+    </div>
+    <div class="hero-loc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-8-4.5-8-11.8A8 8 0 0 1 12 1a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      Iskele Cad. Yalıkavak Marina Yanı &nbsp;·&nbsp; Bodrum / Muğla
+    </div>
+  </div>
+
+  <div class="hero-right" aria-hidden="true">
+    <img src="Seyfi_Balik_Design_System/assets/photos/scene-exterior.jpg"
+         alt="" class="hero-photo">
+    <img src="Seyfi_Balik_Design_System/assets/icons/fish-folk-navy.png"
+         alt="" class="hero-fish-deco">
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Keşfet</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── MANİFESTO ─────────────────────────────── -->
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <p class="manifesto-quote">
+      "Her perşembe Yalıkavak pazarı kurulur.<br>Her perşembe biz de oraya gideriz."
+      <strong>Kaya koruğu, deniz börülcesi, şaraplı pancar — akşama tepside.</strong>
+    </p>
+    <div class="manifesto-rule" aria-hidden="true"></div>
+    <p class="manifesto-body">
+      Sabah barınaktan çıkan balık öğleye masada.
+      Aynı tepsi, aynı sıra.
+    </p>
+  </div>
+</section>
+
+<!-- ── HİKAYE ─────────────────────────────────── -->
+<section class="story" id="hikaye">
+  <div class="story-inner">
+    <div class="story-photos reveal">
+      <img src="Seyfi_Balik_Design_System/assets/photos/scene-sea.jpg"
+           alt="Ege denizi kenarında servis" class="story-photo-main">
+      <img src="Seyfi_Balik_Design_System/assets/photos/dish-mussels.jpg"
+           alt="Deniz kenarında meze" class="story-photo-accent">
+      <div class="story-badge">
+        <img src="Seyfi_Balik_Design_System/assets/logo-circle.png" alt="Seyfi Balık">
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Hikayemiz</p>
+      <h2 class="section-title reveal">
+        Tepsi açılınca<br><em>konuşma başlar.</em>
+      </h2>
+      <div class="body-text reveal d1">
+        <p>1987'de Seyfi usta önce tepsiye karar verdi. Haydari, atom, lakerda — sırası önemliydi. Sıra bugün de aynı.</p>
+        <p>Sonradan bir şeyler eklendi: kaya koruğu, deniz börülcesi, şevketi bostan. Çoğu müşteri sorar "bu ne" diye. Biz de anlatırız. Ege böyle tanınır zaten — biri bir şey sorunca.</p>
+        <p>Bir ara müzik olmadığını fark ediyorsunuz. Kadehinizde ne kadar kaldığını bilmiyorsunuz — dolup duruyor bir şekilde. Sohbet devam ediyor. Orası böyle bir yer.</p>
+      </div>
+      <div class="story-quote reveal d2">
+        <p>"Bodrum'da her yer şov yapıyor. Seyfi hâlâ yemek yapıyor."</p>
+        <cite>— Bir İstanbullu, Yalıkavak 2025</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEĞERLER ─────────────────────────────────── -->
+<section class="values">
+  <div class="values-grid">
+    <div class="val-card reveal">
+      <div class="val-num serif">—</div>
+      <h3 class="val-title serif">Perşembe sabahı</h3>
+      <p class="val-body">Yalıkavak pazarı her perşembe kurulur. Biz de gideriz. Kaya koruğunu, deniz börülcesini, şevketi bostanı topluyoruz — öğle servisine yetiştiriyoruz.</p>
+      <div class="val-accent"></div>
+    </div>
+    <div class="val-card reveal d1">
+      <div class="val-num serif">—</div>
+      <h3 class="val-title serif">Öğle servisi</h3>
+      <p class="val-body">Balık sabah barınaktan çıkar, öğleden önce mutfakta. Meze tepsisi 30 tabakla kuruluyor — hepsi o gün yapılmış. Bir gün önce kalanı servis etmiyoruz; bu da bir karar aslında.</p>
+      <div class="val-accent"></div>
+    </div>
+    <div class="val-card reveal d2">
+      <div class="val-num serif">—</div>
+      <h3 class="val-title serif">Gece yarısına kadar</h3>
+      <p class="val-body">Kapanış 02:00. Kış gecelerinde de, temmuz ortasında da. Yılboyu açık olmak bir tercih — Eylül'den sonra Yalıkavak'ta kalan, marina etrafında çok yer bulamaz. Biz buradayız.</p>
+      <div class="val-accent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave -->
+<svg class="wave" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--navy);">
+  <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48Z" fill="#F5F1E8"/>
+</svg>
+
+<!-- ── MEZELER ─────────────────────────────────── -->
+<section class="mezze" id="mezeler">
+  <div class="sec-header reveal">
+    <div>
+      <p class="eyebrow">Soğuk Mezeler &amp; Ara Sıcaklar</p>
+      <h2 class="section-title">Tepsinin sırası<br><em>önemlidir.</em></h2>
+    </div>
+    <p class="sec-desc">
+      Haydari önce gelir. Lakerda soğukken. Karides kalamardan sonra. Otuz yılda oturmuş bir sıra bu — değiştirmeye gerek görmedik.
+    </p>
+  </div>
+
+  <div class="mezze-grid">
+    <div class="mz-photo mg-photo-a reveal">
+      <img src="Seyfi_Balik_Design_System/assets/photos/dish-spread.jpg"
+           alt="Seyfi Balık meze sofrası — üst çekim">
+    </div>
+
+    <div class="mz-card mg-c1 reveal" data-n="1">
+      <p class="mz-name serif">Deniz Börülcesi</p>
+      <p class="mz-en">Sea Glasswort</p>
+      <p class="mz-desc">Kıyı taşlarında yetişir, sabah toplanır. Çıtır, hafif tuzlu. Zeytinyağı ve sarımsak. Adını bilmeyenler soruyor — anlatırız.</p>
+    </div>
+
+    <div class="mz-card mg-c2 reveal d1" data-n="2">
+      <p class="mz-name serif">Kaya Koruğu</p>
+      <p class="mz-en">Rock Samphire</p>
+      <p class="mz-desc">Kayalıklarda yetişir. Rezeneyi andırıyor ama daha yoğun, biraz tuza çalar. Limonla gelir. Menüde görünce duraklayanların yarısı sipariş veriyor.</p>
+    </div>
+
+    <div class="mz-card mg-c3 reveal" data-n="3">
+      <p class="mz-name serif">Lakerda</p>
+      <p class="mz-en">Salt-cured Bonito</p>
+      <p class="mz-desc">Torik tuzda bekler, sonra dilimlenır. İnce, soğuk, soğan ve limonla. Rakı geldiğinde kendiliğinden sipariş edilir.</p>
+    </div>
+
+    <div class="mz-photo mg-photo-b reveal d1">
+      <img src="Seyfi_Balik_Design_System/assets/photos/dish-shrimp.jpg"
+           alt="Karides meze">
+    </div>
+
+    <div class="mz-card mg-c4 reveal" data-n="4">
+      <p class="mz-name serif">Atom</p>
+      <p class="mz-en">Spiced Walnut Spread</p>
+      <p class="mz-desc">Ceviz, biber salçası, sarımsak. Masada ilk biten meze.</p>
+    </div>
+
+    <div class="mz-card mg-c5 reveal d1" data-n="5">
+      <p class="mz-name serif">Karides Güveç</p>
+      <p class="mz-en">Prawn Casserole</p>
+      <p class="mz-desc">Domates, sarımsak, fesleğen — toprak güveçte pişer. Ocaktan masaya sıcak.</p>
+    </div>
+
+    <div class="mz-card mg-c6 reveal d2" data-n="6">
+      <p class="mz-name serif">Ahtapot Izgara</p>
+      <p class="mz-en">Grilled Octopus</p>
+      <p class="mz-desc">Uzun süre marine edilip közde pişirilmiş. Zeytinyağı, kekik, limon ile.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Wave -->
+<svg class="wave" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--cream);">
+  <path d="M0,24 C480,0 960,48 1440,24 L1440,0 L0,0Z" fill="#1B2845"/>
+</svg>
+
+<!-- ── EGE OTLARI ─────────────────────────────────── -->
+<section class="otlar">
+  <img src="Seyfi_Balik_Design_System/assets/icons/fish-folk-navy.png"
+       alt="" class="otlar-fish-bg" aria-hidden="true">
+  <div class="otlar-inner">
+    <div class="otlar-text">
+      <p class="eyebrow">Ege Bitkileri</p>
+      <h2 class="section-title reveal">
+        Menüdeki kelimeleri<br>okuyunca <em>soran olur.</em>
+      </h2>
+      <div class="body-text reveal d1">
+        <p>Kaya koruğu nedir diye en çok İngilizler soruyor — ama Türkler de soruyor. Menüde her ikisi de yazıyor, Türkçe ve İngilizce. Yine de sorarsanız anlatırız.</p>
+      </div>
+      <ul class="ot-list">
+        <li class="ot-item reveal">
+          <div class="ot-dot"></div>
+          <div><div class="ot-tr serif">Kaya Koruğu</div><div class="ot-en">Rock Samphire · Crithmum maritimum</div></div>
+        </li>
+        <li class="ot-item reveal d1">
+          <div class="ot-dot"></div>
+          <div><div class="ot-tr serif">Deniz Börülcesi</div><div class="ot-en">Sea Glasswort · Salicornia europaea</div></div>
+        </li>
+        <li class="ot-item reveal d2">
+          <div class="ot-dot"></div>
+          <div><div class="ot-tr serif">Şevketi Bostan</div><div class="ot-en">Golden Thistle · Scolymus hispanicus</div></div>
+        </li>
+        <li class="ot-item reveal">
+          <div class="ot-dot"></div>
+          <div><div class="ot-tr serif">Ekşi Soslu Cibes Otu</div><div class="ot-en">Wild Greens with Vinegar</div></div>
+        </li>
+        <li class="ot-item reveal d1">
+          <div class="ot-dot"></div>
+          <div><div class="ot-tr serif">Hardal Otu</div><div class="ot-en">Wild Mustard Greens · Sinapis arvensis</div></div>
+        </li>
+        <li class="ot-item reveal d2">
+          <div class="ot-dot"></div>
+          <div><div class="ot-tr serif">Turp Otu</div><div class="ot-en">Wild Radish Greens · Raphanus raphanistrum</div></div>
+        </li>
+        <li class="ot-item reveal">
+          <div class="ot-dot"></div>
+          <div><div class="ot-tr serif">Şaraplı Pancar</div><div class="ot-en">Beetroot with Wine Dressing</div></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="otlar-visual reveal">
+      <img src="Seyfi_Balik_Design_System/assets/photos/scene-sea.jpg"
+           alt="Ege denizi" class="otlar-photo">
+      <div class="otlar-card">
+        <p>"Some of these don't have clean English names. Ask — the explanation is part of the meal."</p>
+        <cite>— For first-timers</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FİYAT ŞEFFAFLIĞI ─────────────────────────────── -->
+<section class="fiyat">
+  <div class="fiyat-inner">
+    <div class="fiyat-left">
+      <p class="eyebrow">Sofra Ritüeli</p>
+      <h2 class="section-title reveal">
+        Önce rakı.<br><em style="color:rgba(255,255,255,.55)">Sonra her şey.</em>
+      </h2>
+      <div class="body-text reveal d1">
+        <p>Önce rakı gelir. Buz, ardından su. Sonra tepsiden meze: teker teker değil, birkaç tabak birden, ortaya. Balık en sona; gramajı söylenir, siz karar verirsiniz.</p>
+      </div>
+    </div>
+
+    <ul class="fiyat-list reveal d1">
+      <li class="fi-item"><div class="fi-check">1</div><div class="fi-text">Rakı doldurulur — önce buz, ardından su.</div></li>
+      <li class="fi-item"><div class="fi-check">2</div><div class="fi-text">Soğuk mezeler gelir, ortaya kurulur.</div></li>
+      <li class="fi-item"><div class="fi-check">3</div><div class="fi-text">Ara sıcaklar isteğe göre sipariş edilir.</div></li>
+      <li class="fi-item"><div class="fi-check">4</div><div class="fi-text">Günlük balık sorulur, gramajı konuşulur.</div></li>
+      <li class="fi-item"><div class="fi-check">5</div><div class="fi-text">Tatlı: cevizli helva ya da ayva tatlısı.</div></li>
+      <li class="fi-item"><div class="fi-check">6</div><div class="fi-text">Gece bitmeden bir kadeh daha.</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Wave -->
+<svg class="wave" viewBox="0 0 1440 48" preserveAspectRatio="none" style="background:var(--navy-m);">
+  <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48Z" fill="#F5F1E8"/>
+</svg>
+
+<!-- ── GÜNLÜK BALIK ─────────────────────────────────── -->
+<section class="balik" id="balik">
+  <div class="balik-inner">
+    <div>
+      <p class="eyebrow">Her Sabah Değişen</p>
+      <h2 class="section-title reveal">Günün <em>Balıkları</em></h2>
+      <p class="body-text reveal d1">
+        Sabah barınaktan çıkar, öğleye kadar mutfakta. Gramajını söyleriz — siz karar verirsiniz. Ne var mevsime göre değişir.
+      </p>
+
+      <div class="fish-tbl reveal d1">
+        <div class="fish-head">
+          <span>Balık</span>
+          <span>Hazırlık</span>
+          <span style="text-align:right">Fiyat</span>
+        </div>
+        <div class="fish-row">
+          <div><div class="fish-tr serif">Levrek</div><div class="fish-en">Sea Bass</div></div>
+          <div class="fish-prep">Izgara · fırın<br>limon · zeytinyağı</div>
+          <div class="fish-price serif">480 ₺ <span class="fish-unit">/kg</span></div>
+        </div>
+        <div class="fish-row">
+          <div><div class="fish-tr serif">Çupra</div><div class="fish-en">Sea Bream</div></div>
+          <div class="fish-prep">Kâğıt kebabı<br>veya ızgara</div>
+          <div class="fish-price serif">520 ₺ <span class="fish-unit">/kg</span></div>
+        </div>
+        <div class="fish-row">
+          <div><div class="fish-tr serif">Trança</div><div class="fish-en">Meagre</div></div>
+          <div class="fish-prep">Bütün ızgara<br>2–3 kişilik</div>
+          <div class="fish-price serif">850 ₺ <span class="fish-unit">/kg</span></div>
+        </div>
+        <div class="fish-row">
+          <div><div class="fish-tr serif">Barbunya</div><div class="fish-en">Red Mullet</div></div>
+          <div class="fish-prep">Tava veya ızgara</div>
+          <div class="fish-price serif">680 ₺ <span class="fish-unit">/kg</span></div>
+        </div>
+        <div class="fish-row">
+          <div><div class="fish-tr serif">İstiridye</div><div class="fish-en">Oyster</div></div>
+          <div class="fish-prep">Çiğ · limon<br>mignonette ile</div>
+          <div class="fish-price serif">85 ₺ <span class="fish-unit">/adet</span></div>
+        </div>
+      </div>
+
+      <p class="fish-note reveal">
+        * Stok her sabah değişir. Bugün ne var için WhatsApp'a yazın.<br>
+        * Fresh catch varies daily — drop us a message on WhatsApp to ask.
+      </p>
+    </div>
+
+    <div class="balik-photo-wrap reveal">
+      <img src="Seyfi_Balik_Design_System/assets/photos/dish-fish-classic.jpg"
+           alt="Günlük levrek servisi" class="balik-photo">
+      <div class="balik-tag">Sabah çekilmiş</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ATMOSFER ─────────────────────────────────── -->
+<section class="atmo">
+  <img src="Seyfi_Balik_Design_System/assets/photos/scene-cheers.jpg"
+       alt="Ege'de şerefe" class="atmo-bg">
+  <div class="atmo-overlay" aria-hidden="true"></div>
+  <div class="atmo-content">
+    <div class="atmo-word script reveal">Şerefe.</div>
+    <p class="atmo-sub reveal d1">Yalıkavak Marina &nbsp;·&nbsp; Her gün 12:00 – 02:00</p>
+  </div>
+</section>
+
+<!-- ── REZERVASYON ─────────────────────────────────── -->
+<section class="rezervasyon" id="rezervasyon">
+  <div class="rez-inner">
+    <div class="rez-left">
+      <p class="eyebrow">Bize Gelin</p>
+      <h2 class="section-title reveal">Arayın ya da<br><em>gelin.</em></h2>
+      <div class="body-text reveal d1">
+        <p>Temmuz–Ağustos'ta rezervasyon akıllıca, zorunlu değil. Büyük masalar için (6+) önceden haber verin — gerisini hallederiz.</p>
+      </div>
+      <ul class="rez-list reveal d1">
+        <li class="rez-item">
+          <div class="rez-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.21 12.9 19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="rez-lbl">Telefon</div>
+            <div class="rez-val"><a href="tel:+902523854143">0252 385 41 43</a></div>
+          </div>
+        </li>
+        <li class="rez-item">
+          <div class="rez-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <div class="rez-lbl">WhatsApp</div>
+            <div class="rez-val"><a href="https://wa.me/902523854143" target="_blank" rel="noopener">Mesaj gönderin →</a></div>
+          </div>
+        </li>
+        <li class="rez-item">
+          <div class="rez-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+          </div>
+          <div>
+            <div class="rez-lbl">Çalışma Saatleri</div>
+            <div class="rez-val">Her gün · 12:00 – 02:00<br><span style="font-size:.72rem;opacity:.45">Sezon boyunca açık</span></div>
+          </div>
+        </li>
+        <li class="rez-item">
+          <div class="rez-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-8-4.5-8-11.8A8 8 0 0 1 12 1a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="rez-lbl">Adres</div>
+            <div class="rez-val">Iskele Caddesi, Yalıkavak Marina Yanı<br>Bodrum / Muğla</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rez-right reveal">
+      <img src="Seyfi_Balik_Design_System/assets/logo-circle.png" alt="Seyfi Balık" class="rez-logo">
+      <p class="rez-blurb">
+        "Büyük masalar için önceden arayın. Küçük masalar için kapıdan gelin — yer varsa otururuz."
+      </p>
+      <div class="rez-btns">
+        <a href="https://wa.me/902523854143?text=Merhaba%2C%20rezervasyon%20yapmak%20istiyorum." class="btn-w" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+          WhatsApp ile Rezervasyon
+        </a>
+        <a href="tel:+902523854143" class="btn-o">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.21 12.9 19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          0252 385 41 43
+        </a>
+      </div>
+      <p class="rez-note">
+        Marina'ya yürüme mesafesi. Park yeri var. Kış aylarında da açığız — sezon dışında daha sakin, aynı menü.<br><br>
+        Two minutes from the marina on foot. Open year-round.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────── -->
+<footer>
+  <div class="footer-in">
+    <div class="footer-logo">Seyfi Balık</div>
+    <div class="footer-mid">
+      Iskele Cad. Yalıkavak Marina Yanı · Bodrum / Muğla<br>
+      © 2026 Seyfi Balık. Tüm hakları saklıdır.
+    </div>
+    <div class="footer-est">Est. 1987</div>
+  </div>
+</footer>
+
+<script>
+  /* Nav scroll */
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), { passive: true });
+
+  /* Scroll reveal */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
